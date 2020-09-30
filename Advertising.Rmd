@@ -1,0 +1,50 @@
+---
+title: "Advertising"
+author: "Michael Hall"
+date: "9/29/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Prepare for analyses
+```{r ,warning=FALSE,comment=""}
+set.seed(200)
+library(scatterplot3d)
+```
+
+
+
+```{r data}
+Advertising <- read.csv("C:/Users/micha/Onedrive/Documents/Credit/Credit/Advertising.csv")
+Advertising <- as.data.frame(Advertising)
+attach(Advertising)
+```
+
+
+
+```{r table, echo=FALSE, results='asis',comment=""}
+library(knitr)
+kable(Advertising[1:28,],caption="Advertising DATA Set")
+```
+
+```{r model1}
+model <- lm(sales ~ TV + radio + TV:radio, data = Advertising)
+summary(model)
+```
+
+```{r model2}
+
+model7<-lm(sales~TV+radio,data=Advertising)
+summary(model7)
+```
+
+```{r planemodel}
+
+plot3d <-scatterplot3d(TV,radio,sales,angle=25,color="green",pch=16,main="Regression Plane")
+plot3d$plane3d(model7,lty.box="solid",col="blue")
+```
+
+
